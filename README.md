@@ -29,14 +29,14 @@ Il donne accès aux rapports suivants :
 
 ## Périmètre automatisé
 
-| Domaine | Objectif |
-|---|---|
-| API | Vérifier les recherches directes et les contrats HTTP |
-| E2E | Valider les principaux parcours utilisateur sur l’application publiée |
-| Tests mockés | Couvrir les erreurs, cas limites et données déterministes |
-| Accessibilité | Contrôler Axe, le clavier et la sémantique ARIA |
-| Régression visuelle | Détecter les modifications involontaires de présentation |
-| Qualité du code | Vérifier le formatage, le lint et le typage TypeScript |
+| Domaine             | Objectif                                                              |
+| ------------------- | --------------------------------------------------------------------- |
+| API                 | Vérifier les recherches directes et les contrats HTTP                 |
+| E2E                 | Valider les principaux parcours utilisateur sur l’application publiée |
+| Tests mockés        | Couvrir les erreurs, cas limites et données déterministes             |
+| Accessibilité       | Contrôler Axe, le clavier et la sémantique ARIA                       |
+| Régression visuelle | Détecter les modifications involontaires de présentation              |
+| Qualité du code     | Vérifier le formatage, le lint et le typage TypeScript                |
 
 État actuel de la suite :
 
