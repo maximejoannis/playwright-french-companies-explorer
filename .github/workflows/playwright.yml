@@ -25,6 +25,7 @@ jobs:
       functional: ${{ steps.functional.outcome }}
       visual: ${{ steps.visual.outcome }}
       allure: ${{ steps.allure.outcome }}
+      coverage: ${{ steps.coverage.outcome }}
 
     steps:
       - name: Checkout repository
@@ -43,6 +44,11 @@ jobs:
         id: quality
         continue-on-error: true
         run: npm run quality:report
+
+      - name: Generate functional coverage report
+        id: coverage
+        continue-on-error: true
+        run: npm run coverage:report
 
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
@@ -81,6 +87,8 @@ jobs:
           test -f playwright-report-visual/index.html
           test -f allure-report/index.html
           test -f quality-report/index.html
+          test -f coverage-report/index.html
+          test -f coverage-report/summary.json
           node --check reporting/qa-portal/app.js
           echo "All expected static reports are available."
 
@@ -129,6 +137,15 @@ jobs:
           retention-days: 30
           if-no-files-found: error
 
+      - name: Upload functional coverage report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: functional-coverage-report
+          path: coverage-report/
+          retention-days: 30
+          if-no-files-found: error
+
       - name: Build GitHub Pages site
         if: ${{ !cancelled() && github.event_name != 'pull_request' }}
         env:
@@ -136,17 +153,19 @@ jobs:
           FUNCTIONAL_STATUS: ${{ steps.functional.outcome }}
           VISUAL_STATUS: ${{ steps.visual.outcome }}
           ALLURE_STATUS: ${{ steps.allure.outcome }}
+          COVERAGE_STATUS: ${{ steps.coverage.outcome }}
           WORKFLOW_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         shell: bash
         run: |
           rm -rf pages-site
-          mkdir -p pages-site/{allure,functional,visual,quality}
+          mkdir -p pages-site/{allure,functional,visual,quality,coverage}
 
           cp -R reporting/qa-portal/. pages-site/
           cp -R allure-report/. pages-site/allure/
           cp -R playwright-report-functional/. pages-site/functional/
           cp -R playwright-report-visual/. pages-site/visual/
           cp -R quality-report/. pages-site/quality/
+          cp -R coverage-report/. pages-site/coverage/
 
           node --input-type=module <<'NODE'
           import { writeFileSync } from 'node:fs';
@@ -156,6 +175,7 @@ jobs:
             functional: process.env.FUNCTIONAL_STATUS,
             visual: process.env.VISUAL_STATUS,
             allure: process.env.ALLURE_STATUS,
+            coverage: process.env.COVERAGE_STATUS,
           };
           const passed = value => value === 'success';
           const overallStatus = Object.values(statuses).every(passed)
@@ -191,7 +211,10 @@ jobs:
                 available: true,
                 status: passed(statuses.quality) ? 'passed' : 'failed',
               },
-              coverage: { available: false, status: 'planned' },
+              coverage: {
+                available: true,
+                status: passed(statuses.coverage) ? 'passed' : 'failed',
+              },
             },
           };
 
@@ -252,6 +275,7 @@ jobs:
           FUNCTIONAL_STATUS: ${{ needs.validate.outputs.functional }}
           VISUAL_STATUS: ${{ needs.validate.outputs.visual }}
           ALLURE_STATUS: ${{ needs.validate.outputs.allure }}
+          COVERAGE_STATUS: ${{ needs.validate.outputs.coverage }}
           VALIDATE_RESULT: ${{ needs.validate.result }}
           DEPLOY_RESULT: ${{ needs.deploy.result }}
           EVENT_NAME: ${{ github.event_name }}
@@ -262,13 +286,15 @@ jobs:
           echo "Functional tests: $FUNCTIONAL_STATUS"
           echo "Visual tests: $VISUAL_STATUS"
           echo "Allure generation: $ALLURE_STATUS"
+          echo "Functional coverage report: $COVERAGE_STATUS"
           echo "Pages deployment: $DEPLOY_RESULT"
 
           if [ "$VALIDATE_RESULT" != "success" ] || \
              [ "$QUALITY_STATUS" != "success" ] || \
              [ "$FUNCTIONAL_STATUS" != "success" ] || \
              [ "$VISUAL_STATUS" != "success" ] || \
-             [ "$ALLURE_STATUS" != "success" ]; then
+             [ "$ALLURE_STATUS" != "success" ] || \
+             [ "$COVERAGE_STATUS" != "success" ]; then
             echo "::error::La quality gate QA a échoué. Consultez les rapports publiés et les artefacts."
             exit 1
           fi
