@@ -128,9 +128,9 @@ mise à jour reste une action volontaire et n’est jamais automatique en CI.
 - [x] baselines visuelles validées sur Chromium ;
 - [x] ESLint, Prettier et TypeScript verts ;
 - [x] anomalies critiques retestées ;
-- [ ] dépôt GitHub créé ;
-- [ ] premier pipeline GitHub Actions vert ;
-- [ ] README portfolio final publié.
+- [x] dépôt GitHub créé ;
+- [x] premier pipeline GitHub Actions vert ;
+- [x] README final du projet publié.
 
 ## Évolutions finales du sprint
 
