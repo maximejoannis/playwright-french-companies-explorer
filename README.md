@@ -1,9 +1,19 @@
 # French Companies Explorer — Playwright QA
 
-[![QA CI and Reports](https://github.com/maximejoannis/playwright-french-companies-explorer/actions/workflows/playwright.yml/badge.svg)](https://github.com/maximejoannis/playwright-french-companies-explorer/actions/workflows/playwright.yml)
+[![QA CI and Reports](https://github.com/maximejoannis/playwright-french-companies-explorer/actions/workflows/playwright.yml/badge.svg?branch=main)](https://github.com/maximejoannis/playwright-french-companies-explorer/actions/workflows/playwright.yml)
+[![QA Portal](https://img.shields.io/badge/QA_Portal-online-22c55e?logo=githubpages&logoColor=white)](https://maximejoannis.github.io/playwright-french-companies-explorer/)
+[![Tests](https://img.shields.io/badge/tests-110_passed-22c55e?logo=playwright&logoColor=white)](https://maximejoannis.github.io/playwright-french-companies-explorer/allure/)
+[![Functional Coverage](https://img.shields.io/badge/functional_coverage-77.8%25-f59e0b)](https://maximejoannis.github.io/playwright-french-companies-explorer/coverage/)
+[![P0 Coverage](https://img.shields.io/badge/P0_coverage-100%25-22c55e)](https://maximejoannis.github.io/playwright-french-companies-explorer/coverage/)
+
 [![Playwright](https://img.shields.io/badge/Playwright-1.62-2EAD33?logo=playwright&logoColor=white)](https://playwright.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-6.x-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![ISTQB](https://img.shields.io/badge/Traçabilité-ISTQB-6A5ACD)](./docs/sprint-review/04-matrice-tracabilite.md)
+[![Node.js](https://img.shields.io/badge/Node.js-24-5FA04E?logo=nodedotjs&logoColor=white)](https://nodejs.org/)
+[![Allure](https://img.shields.io/badge/Allure_Report-enabled-f97316)](https://maximejoannis.github.io/playwright-french-companies-explorer/allure/)
+[![ESLint](https://img.shields.io/badge/ESLint-passing-4B32C3?logo=eslint&logoColor=white)](https://maximejoannis.github.io/playwright-french-companies-explorer/quality/)
+[![Prettier](https://img.shields.io/badge/Prettier-passing-F7B93E?logo=prettier&logoColor=black)](https://maximejoannis.github.io/playwright-french-companies-explorer/quality/)
+[![Browsers](https://img.shields.io/badge/browsers-Chromium%20%7C%20Firefox%20%7C%20WebKit-2563eb)](https://maximejoannis.github.io/playwright-french-companies-explorer/functional/)
+[![Traceability](https://img.shields.io/badge/traceability-ISTQB-7c3aed)](./docs/07-matrice-tracabilite.md)
 
 Projet d’automatisation des tests de l’application
 [French Companies Explorer](https://maximejoannis.github.io/french-companies-explorer-qa/),
