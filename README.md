@@ -21,7 +21,26 @@ réalisé avec Playwright et TypeScript.
 
 L’objectif est de démontrer une démarche QA complète : stratégie de test,
 automatisation multi-navigateurs, isolation des données, accessibilité,
-régression visuelle, traçabilité ISTQB et intégration continue.
+régression visuelle, traçabilité ISTQB, mesure de la couverture fonctionnelle
+et intégration continue.
+
+## Sommaire
+
+- [Portail QA](#portail-qa)
+- [Périmètre automatisé](#périmètre-automatisé)
+- [Architecture](#architecture)
+- [Principes appliqués](#principes-appliqués)
+- [Traçabilité ISTQB](#traçabilité-istqb)
+- [Installation locale](#installation-locale)
+- [Exécution des tests](#exécution-des-tests)
+- [Vérifications de qualité](#vérifications-de-qualité)
+- [Couverture fonctionnelle](#couverture-fonctionnelle)
+- [Rapports Allure](#rapports-allure)
+- [Régression visuelle](#régression-visuelle)
+- [Intégration continue](#intégration-continue)
+- [Anomalies mises en évidence](#anomalies-mises-en-évidence)
+- [Améliorations prévues](#améliorations-prévues)
+- [Auteur](#auteur)
 
 ## Portail QA
 
@@ -50,10 +69,15 @@ Il donne accès aux rapports suivants :
 
 État actuel de la suite :
 
-- **39 cas de test logiques**, identifiés de `CT-001` à `CT-039` ;
-- **110 exécutions automatisées** ;
+- **39 cas de test techniques**, identifiés de `CT-001` à `CT-039` ;
+- **110 exécutions automatisées** multi-projets ;
 - **3 moteurs de navigateur** : Chromium, Firefox et WebKit ;
-- tests visuels exécutés sur Chromium sous Linux dans la CI.
+- tests visuels exécutés sur Chromium sous Linux dans la CI ;
+- **35 cas de référence couverts sur 45**, soit **77,8 %** ;
+- **100 % des cas P0 couverts**.
+
+Le nombre de tests techniques, le nombre d’exécutions et le taux de couverture
+fonctionnelle sont des indicateurs distincts.
 
 ## Architecture
 
@@ -63,11 +87,21 @@ Il donne accès aux rapports suivants :
 │   └── workflows/
 │       └── playwright.yml
 ├── docs/
-│   └── sprint-review/
+│   ├── sprint-review/
+│   ├── 01-cartographie-fonctionnelle.md
+│   ├── 02-user-stories-criteres-acceptation.md
+│   ├── 03-scenarios-gherkin.md
+│   ├── 04-strategie-de-test.md
+│   ├── 05-plan-de-test.md
+│   ├── 06-cas-de-test.md
+│   ├── 07-matrice-tracabilite.md
+│   └── 08-rapport-final-couverture-automatisation.md
 ├── fixtures/
 │   └── test.fixture.ts
 ├── pages/
 ├── reporting/
+│   ├── coverage/
+│   │   └── coverage-data.json
 │   ├── qa-portal/
 │   └── scripts/
 ├── test-data/
@@ -84,7 +118,7 @@ Il donne accès aux rapports suivants :
 └── tsconfig.json
 ```
 
-### Principes appliqués
+## Principes appliqués
 
 - Page Object Model pour centraliser les interactions avec l’interface ;
 - fixtures Playwright personnalisées pour injecter les pages métier ;
@@ -94,13 +128,18 @@ Il donne accès aux rapports suivants :
 - séparation entre tests réels, tests mockés, accessibilité et visuel ;
 - exécution parallèle maîtrisée avec deux workers par défaut ;
 - traces et captures collectées en cas d’échec ;
-- références visuelles spécifiques à l’environnement d’exécution.
+- références visuelles spécifiques à l’environnement d’exécution ;
+- génération automatique des rapports dans la CI ;
+- quality gate appliquée après la production des preuves d’exécution.
 
 ## Traçabilité ISTQB
 
-Chaque test utilise un identifiant stable `CT-XXX`. Les métadonnées Allure
-centralisées dans la fixture permettent d’associer les exécutions aux éléments
-suivants :
+Chaque test technique utilise un identifiant `CT-XXX`. La traçabilité est
+établie à partir du comportement et des assertions lorsque plusieurs
+implémentations couvrent un même cas de référence.
+
+Les métadonnées Allure centralisées dans la fixture permettent d’associer les
+exécutions aux éléments suivants :
 
 - User Story ;
 - fonctionnalité ;
@@ -110,13 +149,24 @@ suivants :
 - type de test ;
 - éventuelle anomalie associée.
 
+Un écart historique concernant les identifiants CT-033 à CT-039 est documenté
+dans le rapport de couverture. Leur rebaselining est inscrit au backlog afin de
+rétablir une correspondance univoque entre référentiel et automatisation.
+
 Documents du projet :
 
+- [Cartographie fonctionnelle](./docs/01-cartographie-fonctionnelle.md)
+- [User Stories et critères d’acceptation](./docs/02-user-stories-criteres-acceptation.md)
+- [Scénarios Gherkin](./docs/03-scenarios-gherkin.md)
+- [Stratégie de test](./docs/04-strategie-de-test.md)
+- [Plan de test](./docs/05-plan-de-test.md)
+- [Cas de test](./docs/06-cas-de-test.md)
+- [Matrice de traçabilité](./docs/07-matrice-tracabilite.md)
+- [Rapport final de couverture automatisée](./docs/08-rapport-final-couverture-automatisation.md)
 - [Sprint Review](./docs/sprint-review/01-sprint-review.md)
 - [Registre des anomalies](./docs/sprint-review/02-registre-anomalies.md)
 - [Leçons apprises](./docs/sprint-review/03-lecons-apprises.md)
-- [Matrice de traçabilité](./docs/sprint-review/04-matrice-tracabilite.md)
-- [Rapport final de couverture automatisée](./docs/08-rapport-final-couverture-automatisation.md)
+- [Synthèse de traçabilité de la Sprint Review](./docs/sprint-review/04-matrice-tracabilite.md)
 
 ## Installation locale
 
@@ -139,6 +189,18 @@ Suite complète :
 
 ```bash
 npm test
+```
+
+Tests fonctionnels, API, mockés et accessibilité :
+
+```bash
+npm run test:functional
+```
+
+Tests visuels :
+
+```bash
+npm run test:visual
 ```
 
 Tests E2E :
@@ -171,6 +233,12 @@ Mode debug :
 npm run test:debug
 ```
 
+Afficher la liste des tests :
+
+```bash
+npm run test:list
+```
+
 Exécution avec deux workers depuis PowerShell :
 
 ```powershell
@@ -178,11 +246,26 @@ $env:PW_WORKERS = "2"
 npm test
 ```
 
+Exécution avec deux workers depuis Bash :
+
+```bash
+PW_WORKERS=2 npm test
+```
+
 ## Vérifications de qualité
+
+Vérifications indépendantes :
 
 ```bash
 npm run format:check
 npm run lint
+npm run typecheck
+```
+
+Quality gate locale :
+
+```bash
+npm run quality
 npm run typecheck
 ```
 
@@ -191,6 +274,55 @@ Génération du rapport de qualité :
 ```bash
 npm run quality:report
 ```
+
+Le rapport généré est disponible dans :
+
+```text
+quality-report/index.html
+```
+
+[Consulter le rapport publié](https://maximejoannis.github.io/playwright-french-companies-explorer/quality/)
+
+## Couverture fonctionnelle
+
+La couverture est calculée à partir du référentiel :
+
+```text
+User Story → Critère d’acceptation → Cas de test → Preuve automatisée
+```
+
+État actuel :
+
+| Indicateur              | Résultat  |
+| ----------------------- | --------: |
+| Cas de référence        |        45 |
+| Cas couverts            |        35 |
+| Cas non couverts        |        10 |
+| Couverture globale      | **77,8 %** |
+| Couverture P0           |  **100 %** |
+| Couverture P1           | **83,9 %** |
+| Tests techniques        |        39 |
+| Exécutions automatisées |       110 |
+
+Génération locale du rapport :
+
+```bash
+npm run coverage:report
+```
+
+Le rapport généré est disponible dans :
+
+```text
+coverage-report/index.html
+```
+
+Le taux de couverture fonctionnelle est distinct :
+
+- du taux de réussite de la dernière campagne ;
+- du nombre d’exécutions multi-navigateurs ;
+- de la couverture du code source.
+
+[Consulter le rapport publié](https://maximejoannis.github.io/playwright-french-companies-explorer/coverage/)
 
 ## Rapports Allure
 
@@ -201,9 +333,36 @@ npm run allure:generate
 npm run allure:open
 ```
 
+Commandes disponibles :
+
+```bash
+npm run allure:clean
+npm run allure:generate
+npm run allure:open
+npm run allure:serve
+```
+
+Le rapport Allure présente notamment :
+
+- les tests regroupés par domaine ;
+- les projets et navigateurs utilisés ;
+- les priorités ;
+- les User Stories ;
+- les critères d’acceptation ;
+- les exigences ;
+- les traces vers les cas `CT-XXX`.
+
+[Consulter le rapport Allure publié](https://maximejoannis.github.io/playwright-french-companies-explorer/allure/)
+
 ## Régression visuelle
 
 Exécution des tests visuels :
+
+```bash
+npm run test:visual
+```
+
+Commande Playwright équivalente :
 
 ```bash
 npx playwright test tests/visual --project=chromium --workers=1
@@ -216,7 +375,12 @@ npx playwright test tests/visual --project=chromium --update-snapshots --workers
 ```
 
 Une modification de référence visuelle doit être examinée avant son commit.
-Les baselines utilisées par GitHub Actions sont générées sous Linux.
+
+Les baselines utilisées par GitHub Actions sont générées sous Linux afin que
+l’environnement de création corresponde à l’environnement de comparaison de la
+CI.
+
+[Consulter le rapport visuel publié](https://maximejoannis.github.io/playwright-french-companies-explorer/visual/)
 
 ## Intégration continue
 
@@ -228,16 +392,19 @@ Le workflow GitHub Actions est déclenché sur :
 
 Le pipeline :
 
-1. installe les dépendances ;
-2. vérifie la qualité du code ;
-3. exécute les tests fonctionnels ;
-4. exécute les tests visuels ;
-5. génère les rapports Playwright et Allure ;
-6. construit le portail QA ;
-7. publie GitHub Pages ;
-8. applique la quality gate finale.
+1. récupère le dépôt ;
+2. installe les dépendances ;
+3. vérifie la qualité du code ;
+4. exécute les tests fonctionnels, API, mockés et accessibilité ;
+5. exécute les tests visuels ;
+6. génère les rapports Playwright et Allure ;
+7. génère le rapport de couverture fonctionnelle ;
+8. valide la présence et la cohérence des rapports ;
+9. construit et publie le portail QA sur GitHub Pages ;
+10. applique la quality gate finale.
 
-Les rapports restent également disponibles comme artefacts GitHub Actions.
+Les rapports restent également disponibles comme artefacts GitHub Actions
+pendant leur période de rétention.
 
 ## Anomalies mises en évidence
 
@@ -251,11 +418,21 @@ Le projet d’automatisation a notamment permis d’identifier et de documenter 
 Les tests ont été conservés sans assouplir leurs assertions après correction
 des anomalies applicatives.
 
+Un écart documentaire distinct des anomalies applicatives a également été
+identifié :
+
+- collision historique des identifiants CT-033 à CT-039
+  (`ECART-TRACE-001`).
+
+Cet écart est pris en compte dans le calcul de couverture au moyen d’une
+correspondance fondée sur les comportements et les assertions.
+
 ## Améliorations prévues
 
 - automatisation progressive des dix cas fonctionnels encore non couverts ;
 - rebaselining des identifiants CT-033 à CT-039 ;
-- mesure des exigences et critères d’acceptation non couverts ;
+- intégration des tests visuels dans une User Story dédiée ;
+- mise à jour automatisée des indicateurs du README ;
 - suivi historique des tendances d’exécution ;
 - enrichissement progressif des scénarios selon l’analyse de risques.
 
