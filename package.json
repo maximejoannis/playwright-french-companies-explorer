@@ -25,7 +25,8 @@
     "allure:generate": "allure generate allure-results",
     "allure:open": "allure open allure-report",
     "allure:serve": "allure open allure-results",
-    "quality:report": "node reporting/scripts/generate-quality-report.mjs"
+    "quality:report": "node reporting/scripts/generate-quality-report.mjs",
+    "coverage:report": "node reporting/scripts/generate-coverage-report.mjs"
   },
   "keywords": [],
   "author": "",

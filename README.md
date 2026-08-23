@@ -25,7 +25,7 @@ Il donne accès aux rapports suivants :
 - rapport Playwright fonctionnel, API et accessibilité ;
 - rapport Playwright de régression visuelle ;
 - rapport de qualité ESLint, Prettier et TypeScript ;
-- couverture fonctionnelle automatisée — évolution prévue.
+- rapport de couverture fonctionnelle automatisée `US → CA → CT`.
 
 ## Périmètre automatisé
 
@@ -106,6 +106,7 @@ Documents du projet :
 - [Registre des anomalies](./docs/sprint-review/02-registre-anomalies.md)
 - [Leçons apprises](./docs/sprint-review/03-lecons-apprises.md)
 - [Matrice de traçabilité](./docs/sprint-review/04-matrice-tracabilite.md)
+- [Rapport final de couverture automatisée](./docs/08-rapport-final-couverture-automatisation.md)
 
 ## Installation locale
 
@@ -242,7 +243,8 @@ des anomalies applicatives.
 
 ## Améliorations prévues
 
-- rapport de couverture fonctionnelle `US → CA → CT` ;
+- automatisation progressive des dix cas fonctionnels encore non couverts ;
+- rebaselining des identifiants CT-033 à CT-039 ;
 - mesure des exigences et critères d’acceptation non couverts ;
 - suivi historique des tendances d’exécution ;
 - enrichissement progressif des scénarios selon l’analyse de risques.
