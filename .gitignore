@@ -9,6 +9,8 @@ node_modules/
 /screenshots/
 /playwright/.cache/
 /playwright/.auth/
+/playwright-report-functional/
+/playwright-report-visual/
 
 # Allure generated artifacts
 /quality-report/
