@@ -16,6 +16,9 @@ export default tseslint.config(
       'allure-results/**',
       'allure-report/**',
       '**/*-snapshots/**',
+      'quality-report/**',
+      'coverage-report/**',
+      'pages-site/**',
     ],
   },
 
