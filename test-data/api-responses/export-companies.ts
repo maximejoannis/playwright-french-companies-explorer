@@ -1,0 +1,38 @@
+export const exportCompanies = [
+  {
+    siren: '300000001',
+    nom_complet: 'SOCIÉTÉ ÉTÉ, FRANCE',
+    etat_administratif: 'A',
+    activite_principale: '62.01Z',
+    libelle_activite_principale: 'Conseil, développement et "qualité"',
+    date_creation: '2020-01-01',
+    categorie_entreprise: 'PME',
+    nature_juridique: '5710',
+    tranche_effectif_salarie: '11',
+    siege: {
+      siret: '30000000100001',
+      etat_administratif: 'A',
+      code_postal: '75001',
+      libelle_commune: 'PARIS',
+      adresse: '1 RUE DU TEST\n75001 PARIS',
+    },
+  },
+  {
+    siren: '300000002',
+    nom_complet: '=HYPERLINK("https://example.test")',
+    etat_administratif: 'A',
+    activite_principale: '62.02A',
+    libelle_activite_principale: '+SUM(A1:A2)',
+    date_creation: '2021-01-01',
+    categorie_entreprise: 'PME',
+    nature_juridique: '5710',
+    tranche_effectif_salarie: '12',
+    siege: {
+      siret: '30000000200002',
+      etat_administratif: 'A',
+      code_postal: '69001',
+      libelle_commune: '@LYON',
+      adresse: '-10 RUE DU TEST 69001 LYON',
+    },
+  },
+];
