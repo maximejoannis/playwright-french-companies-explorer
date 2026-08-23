@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="description"
+      content="Portail des rapports QA automatisés de French Companies Explorer."
+    />
+
+    <title>Portail QA — French Companies Explorer</title>
+
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./app.js" defer></script>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main-content">Aller au contenu principal</a>
+
+    <header class="topbar">
+      <div class="container topbar__content">
+        <a class="brand" href="./index.html" aria-label="Accueil du portail QA">
+          <span class="brand__icon" aria-hidden="true">Q</span>
+          <span>
+            <strong>French Companies Explorer</strong>
+            <small>Quality Assurance Portal</small>
+          </span>
+        </a>
+
+        <nav class="topbar__navigation" aria-label="Liens du projet">
+          <a
+            href="https://maximejoannis.github.io/french-companies-explorer-qa/"
+          >
+            Application
+          </a>
+          <a
+            href="https://github.com/maximejoannis/playwright-french-companies-explorer"
+          >
+            Dépôt GitHub
+          </a>
+          <button
+            id="themeToggle"
+            class="theme-toggle"
+            type="button"
+            aria-label="Changer le thème"
+            title="Changer le thème"
+          >
+            <span aria-hidden="true">◐</span>
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <section class="hero">
+        <div class="container hero__content">
+          <div class="hero__copy">
+            <p class="eyebrow">Pilotage qualité automatisé</p>
+            <h1>Un point d’entrée unique pour la qualité du projet.</h1>
+            <p class="hero__description">
+              Consultez les exécutions Playwright, la traçabilité Allure, la
+              qualité statique et, prochainement, la couverture fonctionnelle
+              automatisée.
+            </p>
+
+            <div class="hero__actions">
+              <a class="button button--primary" href="#reports">
+                Consulter les rapports
+              </a>
+              <a
+                class="button button--secondary"
+                href="https://github.com/maximejoannis/playwright-french-companies-explorer/tree/main/docs"
+              >
+                Documentation QA
+              </a>
+            </div>
+          </div>
+
+          <aside class="pipeline-card" aria-labelledby="pipeline-title">
+            <div class="pipeline-card__header">
+              <div>
+                <p class="pipeline-card__label">Dernier pipeline</p>
+                <h2 id="pipeline-title">État de la qualité</h2>
+              </div>
+              <span
+                id="globalStatus"
+                class="status status--loading"
+                aria-live="polite"
+              >
+                Chargement
+              </span>
+            </div>
+
+            <dl class="pipeline-card__metadata">
+              <div>
+                <dt>Branche</dt>
+                <dd id="branchValue">—</dd>
+              </div>
+              <div>
+                <dt>Commit</dt>
+                <dd id="commitValue">—</dd>
+              </div>
+              <div>
+                <dt>Généré le</dt>
+                <dd id="generatedAtValue">—</dd>
+              </div>
+              <div>
+                <dt>Workflow</dt>
+                <dd>
+                  <a id="workflowLink" href="#reports">Voir les rapports</a>
+                </dd>
+              </div>
+            </dl>
+          </aside>
+        </div>
+      </section>
+
+      <section class="metrics-section" aria-label="Indicateurs principaux">
+        <div class="container metrics">
+          <article class="metric">
+            <span class="metric__icon" aria-hidden="true">CT</span>
+            <div>
+              <strong id="logicalTestsValue">39</strong>
+              <span>cas de test logiques</span>
+            </div>
+          </article>
+
+          <article class="metric">
+            <span class="metric__icon" aria-hidden="true">▶</span>
+            <div>
+              <strong id="executionsValue">110</strong>
+              <span>exécutions automatisées</span>
+            </div>
+          </article>
+
+          <article class="metric">
+            <span class="metric__icon" aria-hidden="true">◎</span>
+            <div>
+              <strong id="browsersValue">3</strong>
+              <span>moteurs de navigateur</span>
+            </div>
+          </article>
+
+          <article class="metric">
+            <span class="metric__icon" aria-hidden="true">✓</span>
+            <div>
+              <strong id="qualityChecksValue">3/3</strong>
+              <span>contrôles qualité</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="reports" class="reports-section">
+        <div class="container">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Rapports disponibles</p>
+              <h2>Explorer les preuves de qualité</h2>
+            </div>
+            <p>
+              Chaque rapport répond à un objectif distinct et conserve les
+              éléments utiles au diagnostic et à la traçabilité.
+            </p>
+          </div>
+
+          <div class="reports-grid">
+            <article
+              class="report-card report-card--primary"
+              data-report="allure"
+            >
+              <div class="report-card__topline">
+                <span class="report-card__icon" aria-hidden="true">A</span>
+                <span class="status status--unknown" data-report-status>
+                  Indisponible
+                </span>
+              </div>
+              <p class="report-card__category">Rapport consolidé</p>
+              <h3>Allure</h3>
+              <p class="report-card__description">
+                Vue transversale des exécutions, étapes, projets, tags et
+                métadonnées de traçabilité ISTQB.
+              </p>
+              <ul class="report-card__facts">
+                <li>CT-001 à CT-039</li>
+                <li>Multi-projets et multi-navigateurs</li>
+                <li>Labels US, CA, priorité et défaut</li>
+              </ul>
+              <a class="report-card__link" href="./allure/" data-report-link>
+                Ouvrir Allure <span aria-hidden="true">→</span>
+              </a>
+            </article>
+
+            <article class="report-card" data-report="functional">
+              <div class="report-card__topline">
+                <span class="report-card__icon" aria-hidden="true">P</span>
+                <span class="status status--unknown" data-report-status>
+                  Indisponible
+                </span>
+              </div>
+              <p class="report-card__category">Playwright HTML</p>
+              <h3>Fonctionnel, API et accessibilité</h3>
+              <p class="report-card__description">
+                Résultats détaillés des tests API, E2E, mockés et accessibilité,
+                avec traces et captures en cas d’échec.
+              </p>
+              <ul class="report-card__facts">
+                <li>Chromium, Firefox et WebKit</li>
+                <li>API réelle et réponses mockées</li>
+                <li>Clavier, Axe et sémantique ARIA</li>
+              </ul>
+              <a
+                class="report-card__link"
+                href="./functional/index.html"
+                data-report-link
+              >
+                Ouvrir le rapport <span aria-hidden="true">→</span>
+              </a>
+            </article>
+
+            <article class="report-card" data-report="visual">
+              <div class="report-card__topline">
+                <span class="report-card__icon" aria-hidden="true">V</span>
+                <span class="status status--unknown" data-report-status>
+                  Indisponible
+                </span>
+              </div>
+              <p class="report-card__category">Playwright HTML</p>
+              <h3>Régression visuelle</h3>
+              <p class="report-card__description">
+                Comparaison des interfaces déterministes avec leurs baselines
+                validées et versionnées.
+              </p>
+              <ul class="report-card__facts">
+                <li>Chromium sous Windows</li>
+                <li>Viewport et thème maîtrisés</li>
+                <li>CT-037 à CT-039</li>
+              </ul>
+              <a
+                class="report-card__link"
+                href="./visual/index.html"
+                data-report-link
+              >
+                Ouvrir le rapport <span aria-hidden="true">→</span>
+              </a>
+            </article>
+
+            <article class="report-card" data-report="quality">
+              <div class="report-card__topline">
+                <span class="report-card__icon" aria-hidden="true">Q</span>
+                <span class="status status--unknown" data-report-status>
+                  Indisponible
+                </span>
+              </div>
+              <p class="report-card__category">Quality gate</p>
+              <h3>Qualité du code</h3>
+              <p class="report-card__description">
+                Synthèse du formatage, de l’analyse statique et du typage avec
+                verdict global et sorties détaillées.
+              </p>
+              <ul class="report-card__facts">
+                <li>Prettier</li>
+                <li>ESLint et règles Playwright</li>
+                <li>TypeScript</li>
+              </ul>
+              <a
+                class="report-card__link"
+                href="./quality/index.html"
+                data-report-link
+              >
+                Ouvrir le rapport <span aria-hidden="true">→</span>
+              </a>
+            </article>
+
+            <article class="report-card" data-report="coverage">
+              <div class="report-card__topline">
+                <span class="report-card__icon" aria-hidden="true">%</span>
+                <span class="status status--unknown" data-report-status
+                  >Indisponible</span
+                >
+              </div>
+              <p class="report-card__category">Traçabilité fonctionnelle</p>
+              <h3>Couverture automatisée</h3>
+              <p class="report-card__description">
+                Mesure de la couverture des User Stories, critères d’acceptation
+                et risques par les tests automatisés.
+              </p>
+              <ul class="report-card__facts">
+                <li>35 cas couverts sur 45 — 77,8 %</li>
+                <li>Couverture par priorité</li>
+                <li>Exigences non couvertes</li>
+              </ul>
+              <a
+                class="report-card__link"
+                href="./coverage/index.html"
+                data-report-link
+              >
+                Ouvrir le rapport <span aria-hidden="true">→</span>
+              </a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="strategy-section">
+        <div class="container strategy">
+          <div>
+            <p class="eyebrow">Stratégie de test</p>
+            <h2>Une couverture complémentaire, pas une accumulation.</h2>
+          </div>
+
+          <div class="strategy__levels">
+            <article>
+              <strong>API</strong>
+              <span>Contrats HTTP et recherches directes</span>
+            </article>
+            <article>
+              <strong>E2E</strong>
+              <span>Parcours réels orientés utilisateur</span>
+            </article>
+            <article>
+              <strong>Mocké</strong>
+              <span>Cas rares, erreurs et données déterministes</span>
+            </article>
+            <article>
+              <strong>A11y</strong>
+              <span>Axe, clavier et contrat sémantique</span>
+            </article>
+            <article>
+              <strong>Visuel</strong>
+              <span>Détection des régressions de présentation</span>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer__content">
+        <p>
+          Portail généré automatiquement par GitHub Actions. Les rapports ne
+          sont publiés qu’après validation des quality gates.
+        </p>
+        <a
+          href="https://github.com/maximejoannis/playwright-french-companies-explorer/tree/main/docs/sprint-review"
+        >
+          Consulter la Sprint Review
+        </a>
+      </div>
+    </footer>
+  </body>
+</html>
