@@ -20,7 +20,7 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
-    "allure:clean": "node -e \"const fs=require('node:fs'); fs.rmSync('allure-results',{recursive:true,force:true}); fs.rmSync('allure-report',{recursive:true,force:true});\"",
+    "allure:clean": "...",
     "allure:generate": "allure generate allure-results",
     "allure:open": "allure open allure-report",
     "allure:serve": "allure open allure-results",
