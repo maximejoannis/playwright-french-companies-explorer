@@ -1,0 +1,240 @@
+{
+  "project": "French Companies Explorer",
+  "generatedFrom": {
+    "requirements": "docs/02-user-stories-criteres-acceptation.md",
+    "testCases": "docs/06-cas-de-test.md",
+    "traceability": "docs/07-matrice-tracabilite.md"
+  },
+  "scope": {
+    "referenceCases": 45,
+    "coveredCases": 35,
+    "uncoveredCases": 10,
+    "coverageRate": 77.8,
+    "technicalAutomatedCases": 39,
+    "automatedExecutions": 110
+  },
+  "userStories": [
+    {
+      "id": "US01",
+      "name": "Rechercher par nom ou mot-clé",
+      "total": 3,
+      "covered": 3,
+      "cases": "CT-001 à CT-003",
+      "uncovered": "—"
+    },
+    {
+      "id": "US02",
+      "name": "Rechercher par identifiant",
+      "total": 3,
+      "covered": 3,
+      "cases": "CT-004 à CT-006",
+      "uncovered": "—"
+    },
+    {
+      "id": "US03",
+      "name": "Filtrer les résultats",
+      "total": 3,
+      "covered": 3,
+      "cases": "CT-007 à CT-009",
+      "uncovered": "—"
+    },
+    {
+      "id": "US04",
+      "name": "Trier les résultats",
+      "total": 3,
+      "covered": 3,
+      "cases": "CT-010 à CT-012",
+      "uncovered": "—"
+    },
+    {
+      "id": "US05",
+      "name": "Paginer les résultats",
+      "total": 3,
+      "covered": 3,
+      "cases": "CT-013 à CT-015",
+      "uncovered": "—"
+    },
+    {
+      "id": "US06",
+      "name": "Consulter une fiche entreprise",
+      "total": 3,
+      "covered": 3,
+      "cases": "CT-016 à CT-018",
+      "uncovered": "—"
+    },
+    {
+      "id": "US07",
+      "name": "Consulter les établissements",
+      "total": 2,
+      "covered": 2,
+      "cases": "CT-019, CT-020",
+      "uncovered": "—"
+    },
+    {
+      "id": "US08",
+      "name": "Gérer les favoris",
+      "total": 3,
+      "covered": 3,
+      "cases": "CT-021 à CT-023",
+      "uncovered": "—"
+    },
+    {
+      "id": "US09",
+      "name": "Comparer des entreprises",
+      "total": 3,
+      "covered": 3,
+      "cases": "CT-024 à CT-026",
+      "uncovered": "—"
+    },
+    {
+      "id": "US10",
+      "name": "Historique et recherches sauvegardées",
+      "total": 3,
+      "covered": 3,
+      "cases": "CT-027 à CT-029",
+      "uncovered": "—"
+    },
+    {
+      "id": "US11",
+      "name": "Exporter les résultats",
+      "total": 3,
+      "covered": 3,
+      "cases": "CT-030 à CT-032",
+      "uncovered": "—"
+    },
+    {
+      "id": "US12",
+      "name": "Copier le SIREN et ouvrir l’annuaire",
+      "total": 3,
+      "covered": 0,
+      "cases": "—",
+      "uncovered": "CT-033 à CT-035"
+    },
+    {
+      "id": "US13",
+      "name": "Changer de thème",
+      "total": 3,
+      "covered": 0,
+      "cases": "—",
+      "uncovered": "CT-036 à CT-038"
+    },
+    {
+      "id": "US14",
+      "name": "Comprendre les états système",
+      "total": 3,
+      "covered": 0,
+      "cases": "—",
+      "uncovered": "CT-039 à CT-041"
+    },
+    {
+      "id": "US15",
+      "name": "Utiliser l’application de manière accessible",
+      "total": 4,
+      "covered": 3,
+      "cases": "CT-042, CT-043, CT-045",
+      "uncovered": "CT-044"
+    }
+  ],
+  "priorities": [
+    { "id": "P0", "name": "Critique", "total": 4, "covered": 4 },
+    { "id": "P1", "name": "Important", "total": 31, "covered": 26 },
+    { "id": "P2", "name": "Complémentaire", "total": 8, "covered": 5 },
+    { "id": "P3", "name": "Confort", "total": 2, "covered": 0 }
+  ],
+  "uncoveredCases": [
+    {
+      "id": "CT-033",
+      "trace": "US12-CA01",
+      "priority": "P2",
+      "reason": "Copie exacte du SIREN non automatisée"
+    },
+    {
+      "id": "CT-034",
+      "trace": "US12-CA02",
+      "priority": "P2",
+      "reason": "Cible de l’annuaire officiel non automatisée"
+    },
+    {
+      "id": "CT-035",
+      "trace": "US12-CA03",
+      "priority": "P2",
+      "reason": "Refus du presse-papiers non automatisé"
+    },
+    {
+      "id": "CT-036",
+      "trace": "US13-CA01",
+      "priority": "P3",
+      "reason": "Cohérence du thème entre les vues non automatisée"
+    },
+    {
+      "id": "CT-037",
+      "trace": "US13-CA02",
+      "priority": "P3",
+      "reason": "Persistance du thème non automatisée"
+    },
+    {
+      "id": "CT-038",
+      "trace": "US13-CA03",
+      "priority": "P1",
+      "reason": "Contraste et focus dans les deux thèmes non couverts substantiellement"
+    },
+    {
+      "id": "CT-039",
+      "trace": "US14-CA01",
+      "priority": "P1",
+      "reason": "État de chargement retardé non automatisé"
+    },
+    {
+      "id": "CT-040",
+      "trace": "US14-CA02",
+      "priority": "P1",
+      "reason": "État vide fonctionnel distinct d’une erreur non automatisé"
+    },
+    {
+      "id": "CT-041",
+      "trace": "US14-CA03",
+      "priority": "P1",
+      "reason": "Matrice complète 429, 500, 503, timeout et offline non automatisée"
+    },
+    {
+      "id": "CT-044",
+      "trace": "US15-CA03",
+      "priority": "P1",
+      "reason": "Viewport 320 px et zoom 200 % non automatisés"
+    }
+  ],
+  "behavioralMappings": [
+    {
+      "technicalTest": "CT-033",
+      "referenceCase": "CT-045",
+      "evidence": "Audit axe-core sans violation critique ou sérieuse"
+    },
+    {
+      "technicalTest": "CT-034",
+      "referenceCase": "CT-042",
+      "evidence": "Parcours de recherche uniquement au clavier"
+    },
+    {
+      "technicalTest": "CT-035 et CT-036",
+      "referenceCase": "CT-043",
+      "evidence": "Noms accessibles pertinents et annonce dynamique du compteur"
+    }
+  ],
+  "extensions": [
+    {
+      "technicalTest": "CT-037",
+      "proposedTrace": "US16-CA01",
+      "description": "Régression visuelle de la recherche vide"
+    },
+    {
+      "technicalTest": "CT-038",
+      "proposedTrace": "US16-CA02",
+      "description": "Régression visuelle des résultats"
+    },
+    {
+      "technicalTest": "CT-039",
+      "proposedTrace": "US16-CA03",
+      "description": "Régression visuelle de la fiche entreprise"
+    }
+  ]
+}
