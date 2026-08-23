@@ -293,16 +293,16 @@ User Story → Critère d’acceptation → Cas de test → Preuve automatisée
 
 État actuel :
 
-| Indicateur              | Résultat  |
-| ----------------------- | --------: |
-| Cas de référence        |        45 |
-| Cas couverts            |        35 |
-| Cas non couverts        |        10 |
+| Indicateur              |   Résultat |
+| ----------------------- | ---------: |
+| Cas de référence        |         45 |
+| Cas couverts            |         35 |
+| Cas non couverts        |         10 |
 | Couverture globale      | **77,8 %** |
 | Couverture P0           |  **100 %** |
 | Couverture P1           | **83,9 %** |
-| Tests techniques        |        39 |
-| Exécutions automatisées |       110 |
+| Tests techniques        |         39 |
+| Exécutions automatisées |        110 |
 
 Génération locale du rapport :
 
