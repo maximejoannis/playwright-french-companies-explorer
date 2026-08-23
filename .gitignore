@@ -11,6 +11,9 @@ node_modules/
 /playwright/.auth/
 
 # Allure generated artifacts
+/quality-report/
+/coverage-report/
+/pages-site/
 /allure-results/
 /allure-report/
 
