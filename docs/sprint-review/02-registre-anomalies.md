@@ -56,3 +56,27 @@ Pour les défauts produit importants :
 - distinguer dans les labels GitHub : `product-bug`, `test-bug`, `flaky`,
   `accessibility`, `security`, `visual` ;
 - ne clôturer une anomalie qu’après retest et non-régression verts.
+
+## Écart documentaire et de traçabilité
+
+### ECART-TRACE-001 — Collision des identifiants CT-033 à CT-039
+
+| Champ | Valeur |
+| --- | --- |
+| Type | Écart documentaire / dette de traçabilité |
+| Sévérité | Moyenne |
+| Statut | Identifié — rebaselining à planifier |
+| Détection | Génération du rapport de couverture fonctionnelle |
+
+Les tests techniques CT-033 à CT-039 ne correspondent plus aux cas portant les mêmes identifiants dans le référentiel initial.
+
+Les correspondances ont été établies selon les comportements et assertions :
+
+- CT-033 technique couvre CT-045 du référentiel — audit Axe ;
+- CT-034 technique couvre CT-042 — parcours clavier ;
+- CT-035 et CT-036 techniques couvrent CT-043 — sémantique accessible ;
+- CT-037 à CT-039 techniques constituent des extensions de régression visuelle hors référentiel.
+
+### Action recommandée
+
+Créer une User Story dédiée à la préservation visuelle, puis rebaseliner les identifiants afin de restaurer une relation univoque entre exigence, cas de test et implémentation.
