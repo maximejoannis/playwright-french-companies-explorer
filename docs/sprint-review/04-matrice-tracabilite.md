@@ -100,5 +100,20 @@ renuméroter les US/CA lors de l’intégration dans un outil de gestion de test
 - [x] non-régression locale verte ;
 - [x] typecheck, lint et formatage verts ;
 - [x] anomalie retestée sans affaiblir l’intention du test ;
-- [ ] pipeline distant vert après création du dépôt ;
-- [ ] preuve CI liée au README ou à la release.
+- [x] pipeline distant vert après création du dépôt ;
+- [x] preuve CI liée au README ou à la release.
+
+## Couverture automatisée finale
+
+Le détail de la couverture, des correspondances comportementales et des cas restant à automatiser est disponible dans :
+
+[Rapport final de couverture automatisée](../08-rapport-final-couverture-automatisation.md)
+
+### Synthèse
+
+- couverture globale : **35/45 — 77,8 %** ;
+- couverture P0 : **4/4 — 100 %** ;
+- couverture P1 : **26/31 — 83,9 %** ;
+- dix cas restent à automatiser ;
+- trois scénarios visuels doivent être intégrés au référentiel ;
+- les collisions CT-033 à CT-039 doivent faire l’objet d’un rebaselining.
