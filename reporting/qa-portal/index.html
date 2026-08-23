@@ -273,13 +273,12 @@
               </a>
             </article>
 
-            <article
-              class="report-card report-card--planned"
-              data-report="coverage"
-            >
+            <article class="report-card" data-report="coverage">
               <div class="report-card__topline">
                 <span class="report-card__icon" aria-hidden="true">%</span>
-                <span class="status status--planned">À venir</span>
+                <span class="status status--unknown" data-report-status
+                  >Indisponible</span
+                >
               </div>
               <p class="report-card__category">Traçabilité fonctionnelle</p>
               <h3>Couverture automatisée</h3>
@@ -288,13 +287,17 @@
                 et risques par les tests automatisés.
               </p>
               <ul class="report-card__facts">
-                <li>US → CA → CT</li>
+                <li>35 cas couverts sur 45 — 77,8 %</li>
                 <li>Couverture par priorité</li>
                 <li>Exigences non couvertes</li>
               </ul>
-              <span class="report-card__link report-card__link--disabled">
-                Rapport planifié
-              </span>
+              <a
+                class="report-card__link"
+                href="./coverage/index.html"
+                data-report-link
+              >
+                Ouvrir le rapport <span aria-hidden="true">→</span>
+              </a>
             </article>
           </div>
         </div>
