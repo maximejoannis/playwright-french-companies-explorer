@@ -10,6 +10,10 @@ node_modules/
 /playwright/.cache/
 /playwright/.auth/
 
+# Allure generated artifacts
+/allure-results/
+/allure-report/
+
 # Environment variables
 .env
 .env.*

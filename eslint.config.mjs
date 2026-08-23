@@ -13,6 +13,8 @@ export default tseslint.config(
       'blob-report/**',
       'reports/**',
       'screenshots/**',
+      'allure-results/**',
+      'allure-report/**',
       '**/*-snapshots/**',
     ],
   },

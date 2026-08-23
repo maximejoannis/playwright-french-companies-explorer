@@ -6,3 +6,5 @@ reports/
 screenshots/
 **/*-snapshots/
 package-lock.json
+allure-results/
+allure-report/
