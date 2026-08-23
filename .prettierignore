@@ -8,3 +8,6 @@ screenshots/
 package-lock.json
 allure-results/
 allure-report/
+quality-report/
+coverage-report/
+pages-site/
