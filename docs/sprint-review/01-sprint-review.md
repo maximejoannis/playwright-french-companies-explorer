@@ -148,16 +148,16 @@ Le pipeline GitHub Actions génère, contrôle et publie automatiquement ces rap
 
 ### Couverture fonctionnelle automatisée
 
-| Indicateur | Résultat |
-| --- | ---: |
-| Cas de référence | 45 |
-| Cas couverts | 35 |
-| Cas non couverts | 10 |
-| Couverture globale | **77,8 %** |
-| Couverture P0 | **100 %** |
-| Couverture P1 | **83,9 %** |
-| Tests techniques automatisés | 39 |
-| Exécutions multi-projets | 110 |
+| Indicateur                   |   Résultat |
+| ---------------------------- | ---------: |
+| Cas de référence             |         45 |
+| Cas couverts                 |         35 |
+| Cas non couverts             |         10 |
+| Couverture globale           | **77,8 %** |
+| Couverture P0                |  **100 %** |
+| Couverture P1                | **83,9 %** |
+| Tests techniques automatisés |         39 |
+| Exécutions multi-projets     |        110 |
 
 Le taux de couverture est distinct du taux de réussite : toute la non-régression est verte, mais dix cas fonctionnels du référentiel restent à automatiser.
 

@@ -61,11 +61,11 @@ Pour les défauts produit importants :
 
 ### ECART-TRACE-001 — Collision des identifiants CT-033 à CT-039
 
-| Champ | Valeur |
-| --- | --- |
-| Type | Écart documentaire / dette de traçabilité |
-| Sévérité | Moyenne |
-| Statut | Identifié — rebaselining à planifier |
+| Champ     | Valeur                                            |
+| --------- | ------------------------------------------------- |
+| Type      | Écart documentaire / dette de traçabilité         |
+| Sévérité  | Moyenne                                           |
+| Statut    | Identifié — rebaselining à planifier              |
 | Détection | Génération du rapport de couverture fonctionnelle |
 
 Les tests techniques CT-033 à CT-039 ne correspondent plus aux cas portant les mêmes identifiants dans le référentiel initial.
