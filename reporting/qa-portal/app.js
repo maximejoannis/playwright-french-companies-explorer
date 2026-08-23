@@ -85,7 +85,7 @@ function updateReportCards(reports) {
     if (link && !report.available) {
       link.setAttribute('aria-disabled', 'true');
       link.setAttribute('tabindex', '-1');
-      link.addEventListener('click', event => event.preventDefault());
+      link.addEventListener('click', (event) => event.preventDefault());
     }
   }
 }
@@ -156,8 +156,7 @@ function initializeTheme() {
     const systemUsesDark = window.matchMedia(
       '(prefers-color-scheme: dark)',
     ).matches;
-    const effectiveTheme =
-      currentTheme ?? (systemUsesDark ? 'dark' : 'light');
+    const effectiveTheme = currentTheme ?? (systemUsesDark ? 'dark' : 'light');
     const nextTheme = effectiveTheme === 'dark' ? 'light' : 'dark';
 
     document.documentElement.dataset.theme = nextTheme;

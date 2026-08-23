@@ -20,8 +20,7 @@ const CHECKS = [
   {
     id: 'eslint',
     name: 'ESLint',
-    description:
-      'Analyse statique TypeScript et bonnes pratiques Playwright.',
+    description: 'Analyse statique TypeScript et bonnes pratiques Playwright.',
     script: 'lint',
   },
   {
@@ -661,7 +660,7 @@ mkdirSync(OUTPUT_DIRECTORY, {
 
 const generatedAt = new Date().toISOString();
 const checks = CHECKS.map(executeCheck);
-const passedChecks = checks.filter(check => check.status === 'passed').length;
+const passedChecks = checks.filter((check) => check.status === 'passed').length;
 const failedChecks = checks.length - passedChecks;
 const overallStatus = failedChecks === 0 ? 'passed' : 'failed';
 
@@ -694,11 +693,7 @@ writeFileSync(
   'utf8',
 );
 
-writeFileSync(
-  HTML_REPORT_PATH,
-  createHtmlReport(summary),
-  'utf8',
-);
+writeFileSync(HTML_REPORT_PATH, createHtmlReport(summary), 'utf8');
 
 console.log(`Rapport HTML : ${HTML_REPORT_PATH}`);
 console.log(`Résumé JSON  : ${JSON_REPORT_PATH}`);

@@ -1,1 +1,282 @@
+name: QA CI and Reports
 
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: qa-pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate and build QA reports
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    outputs:
+      quality: ${{ steps.quality.outcome }}
+      functional: ${{ steps.functional.outcome }}
+      visual: ${{ steps.visual.outcome }}
+      allure: ${{ steps.allure.outcome }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate code quality report
+        id: quality
+        continue-on-error: true
+        run: npm run quality:report
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Run functional, API, mocked and accessibility tests
+        id: functional
+        continue-on-error: true
+        env:
+          PLAYWRIGHT_HTML_OUTPUT_DIR: playwright-report-functional
+        run: >-
+          npx playwright test
+          tests/api
+          tests/accessibility
+          tests/e2e
+          tests/mocked
+
+      - name: Run visual tests
+        id: visual
+        continue-on-error: true
+        env:
+          PLAYWRIGHT_HTML_OUTPUT_DIR: playwright-report-visual
+        run: npx playwright test tests/visual --project=chromium
+
+      - name: Generate consolidated Allure report
+        id: allure
+        if: ${{ !cancelled() }}
+        continue-on-error: true
+        run: npm run allure:generate
+
+      - name: Validate generated reports
+        id: reports
+        if: ${{ !cancelled() }}
+        shell: bash
+        run: |
+          test -f playwright-report-functional/index.html
+          test -f playwright-report-visual/index.html
+          test -f allure-report/index.html
+          test -f quality-report/index.html
+          node --check reporting/qa-portal/app.js
+          echo "All expected static reports are available."
+
+      - name: Upload functional Playwright report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: playwright-functional-report
+          path: playwright-report-functional/
+          retention-days: 30
+          if-no-files-found: error
+
+      - name: Upload visual Playwright report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: playwright-visual-report
+          path: playwright-report-visual/
+          retention-days: 30
+          if-no-files-found: error
+
+      - name: Upload Allure raw results
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: allure-results
+          path: allure-results/
+          retention-days: 30
+          if-no-files-found: warn
+
+      - name: Upload consolidated Allure report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: allure-report
+          path: allure-report/
+          retention-days: 30
+          if-no-files-found: error
+
+      - name: Upload code quality report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: code-quality-report
+          path: quality-report/
+          retention-days: 30
+          if-no-files-found: error
+
+      - name: Build GitHub Pages site
+        if: ${{ !cancelled() && github.event_name != 'pull_request' }}
+        env:
+          QUALITY_STATUS: ${{ steps.quality.outcome }}
+          FUNCTIONAL_STATUS: ${{ steps.functional.outcome }}
+          VISUAL_STATUS: ${{ steps.visual.outcome }}
+          ALLURE_STATUS: ${{ steps.allure.outcome }}
+          WORKFLOW_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        shell: bash
+        run: |
+          rm -rf pages-site
+          mkdir -p pages-site/{allure,functional,visual,quality}
+
+          cp -R reporting/qa-portal/. pages-site/
+          cp -R allure-report/. pages-site/allure/
+          cp -R playwright-report-functional/. pages-site/functional/
+          cp -R playwright-report-visual/. pages-site/visual/
+          cp -R quality-report/. pages-site/quality/
+
+          node --input-type=module <<'NODE'
+          import { writeFileSync } from 'node:fs';
+
+          const statuses = {
+            quality: process.env.QUALITY_STATUS,
+            functional: process.env.FUNCTIONAL_STATUS,
+            visual: process.env.VISUAL_STATUS,
+            allure: process.env.ALLURE_STATUS,
+          };
+          const passed = value => value === 'success';
+          const overallStatus = Object.values(statuses).every(passed)
+            ? 'passed'
+            : 'failed';
+
+          const buildInfo = {
+            status: overallStatus,
+            generatedAt: new Date().toISOString(),
+            branch: process.env.GITHUB_REF_NAME,
+            commit: process.env.GITHUB_SHA.slice(0, 7),
+            workflowUrl: process.env.WORKFLOW_URL,
+            metrics: {
+              logicalTests: 39,
+              executions: 110,
+              browsers: 3,
+              qualityChecks: passed(statuses.quality) ? '3/3' : 'Échec',
+            },
+            reports: {
+              functional: {
+                available: true,
+                status: passed(statuses.functional) ? 'passed' : 'failed',
+              },
+              visual: {
+                available: true,
+                status: passed(statuses.visual) ? 'passed' : 'failed',
+              },
+              allure: {
+                available: true,
+                status: passed(statuses.allure) ? 'passed' : 'failed',
+              },
+              quality: {
+                available: true,
+                status: passed(statuses.quality) ? 'passed' : 'failed',
+              },
+              coverage: { available: false, status: 'planned' },
+            },
+          };
+
+          writeFileSync(
+            'pages-site/build-info.json',
+            `${JSON.stringify(buildInfo, null, 2)}\n`,
+            'utf8',
+          );
+          NODE
+
+          touch pages-site/.nojekyll
+          find pages-site -maxdepth 2 -type f | sort
+
+      - name: Configure GitHub Pages
+        if: ${{ !cancelled() && github.event_name != 'pull_request' }}
+        uses: actions/configure-pages@v6
+
+      - name: Upload GitHub Pages artifact
+        if: ${{ !cancelled() && github.event_name != 'pull_request' }}
+        uses: actions/upload-pages-artifact@v5.0.0
+        with:
+          path: pages-site/
+
+  deploy:
+    name: Publish QA portal
+    needs: validate
+    if: >-
+      ${{
+        always() &&
+        github.event_name != 'pull_request' &&
+        needs.validate.result == 'success'
+      }}
+    runs-on: ubuntu-latest
+
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
+
+  quality-gate:
+    name: Enforce QA quality gate
+    needs: [validate, deploy]
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check validation outcomes
+        env:
+          QUALITY_STATUS: ${{ needs.validate.outputs.quality }}
+          FUNCTIONAL_STATUS: ${{ needs.validate.outputs.functional }}
+          VISUAL_STATUS: ${{ needs.validate.outputs.visual }}
+          ALLURE_STATUS: ${{ needs.validate.outputs.allure }}
+          VALIDATE_RESULT: ${{ needs.validate.result }}
+          DEPLOY_RESULT: ${{ needs.deploy.result }}
+          EVENT_NAME: ${{ github.event_name }}
+        shell: bash
+        run: |
+          echo "Validation job: $VALIDATE_RESULT"
+          echo "Code quality: $QUALITY_STATUS"
+          echo "Functional tests: $FUNCTIONAL_STATUS"
+          echo "Visual tests: $VISUAL_STATUS"
+          echo "Allure generation: $ALLURE_STATUS"
+          echo "Pages deployment: $DEPLOY_RESULT"
+
+          if [ "$VALIDATE_RESULT" != "success" ] || \
+             [ "$QUALITY_STATUS" != "success" ] || \
+             [ "$FUNCTIONAL_STATUS" != "success" ] || \
+             [ "$VISUAL_STATUS" != "success" ] || \
+             [ "$ALLURE_STATUS" != "success" ]; then
+            echo "::error::La quality gate QA a échoué. Consultez les rapports publiés et les artefacts."
+            exit 1
+          fi
+
+          if [ "$EVENT_NAME" != "pull_request" ] && \
+             [ "$DEPLOY_RESULT" != "success" ]; then
+            echo "::error::La publication GitHub Pages a échoué."
+            exit 1
+          fi
+
+          echo "Quality gate QA validée."
