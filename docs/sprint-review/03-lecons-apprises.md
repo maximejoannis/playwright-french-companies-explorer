@@ -157,21 +157,45 @@ Besoin → critère d’acceptation → cas de test → résultat → anomalie �
 - éviter les changements de noms publics dans un Page Object sans rechercher
   tous leurs consommateurs.
 
-## 5. Actions proposées pour la prochaine itération
-
-| Action                                | Priorité | Critère de réussite                              |
-| ------------------------------------- | -------- | ------------------------------------------------ |
-| Créer le dépôt GitHub                 | P0       | Historique poussé sur `main`.                    |
-| Valider GitHub Actions                | P0       | Jobs fonctionnel et visuel verts.                |
-| Publier le README portfolio           | P0       | Architecture, commandes et résultats documentés. |
-| Créer les issues des anomalies closes | P1       | Preuves rouge/vert liées aux issues.             |
-| Réaliser une passe lecteur d’écran    | P1       | Compte rendu manuel ajouté.                      |
-| Ajouter un badge CI                   | P2       | État du workflow visible dans le README.         |
-
-## 6. Formulation courte pour une Sprint Review
+## 5. Formulation courte pour une Sprint Review
 
 > Nous avons appris qu’une automatisation fiable ne consiste pas à obtenir du
 > vert à tout prix. Elle consiste à maîtriser l’état initial, les données,
-> l’environnement et l’oracle ; à distinguer défaut produit et défaut de test ;
+> et l’environnement ; à distinguer défaut produit et défaut de test ;
 > puis à conserver la preuve du cycle détection, correction, retest et
 > non-régression.
+
+## Mesurer la couverture à partir du référentiel
+
+Le nombre de tests automatisés ne constitue pas à lui seul un taux de couverture fonctionnelle.
+
+La suite contient 39 cas techniques, mais elle couvre 35 des 45 cas du référentiel. Plusieurs tests peuvent couvrir le même besoin, tandis que certains tests techniques peuvent étendre le périmètre sans correspondre à une exigence formalisée.
+
+### Leçon à retenir
+
+La couverture doit être calculée dans le sens :
+
+`Exigence → Critère d’acceptation → Cas de référence → Preuve automatisée`
+
+et non simplement à partir du nombre de fichiers ou de tests Playwright.
+
+## Garantir l’unicité des identifiants
+
+Un identifiant CT doit désigner un seul cas de test pendant toute sa durée de vie. Sa réutilisation pour un autre comportement compromet les rapports et la lecture de la traçabilité.
+
+### Leçon à retenir
+
+Avant d’ajouter un scénario automatisé :
+
+1. vérifier l’identifiant dans la matrice ;
+2. conserver son objectif fonctionnel ;
+3. créer un nouvel identifiant lorsque le comportement est nouveau ;
+4. mettre à jour simultanément exigences, cas, matrice et métadonnées Allure.
+
+## Aligner les références visuelles avec la CI
+
+Les snapshots créés sous Windows ne sont pas interchangeables avec ceux utilisés sous Linux par GitHub Actions.
+
+### Leçon à retenir
+
+Les baselines visuelles doivent être générées et validées dans le même environnement que celui qui exécute la quality gate.
