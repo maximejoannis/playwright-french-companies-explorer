@@ -132,6 +132,35 @@ mise à jour reste une action volontaire et n’est jamais automatique en CI.
 - [ ] premier pipeline GitHub Actions vert ;
 - [ ] README portfolio final publié.
 
+## Évolutions finales du sprint
+
+### Industrialisation du reporting
+
+Un portail QA centralisé a été publié sur GitHub Pages. Il regroupe :
+
+- le rapport Playwright fonctionnel, API et accessibilité ;
+- le rapport Playwright de régression visuelle ;
+- le rapport consolidé Allure ;
+- le rapport de qualité ESLint, Prettier et TypeScript ;
+- le rapport de couverture fonctionnelle `US → CA → CT`.
+
+Le pipeline GitHub Actions génère, contrôle et publie automatiquement ces rapports. La quality gate vérifie les tests, la qualité du code, la génération Allure et le rapport de couverture.
+
+### Couverture fonctionnelle automatisée
+
+| Indicateur | Résultat |
+| --- | ---: |
+| Cas de référence | 45 |
+| Cas couverts | 35 |
+| Cas non couverts | 10 |
+| Couverture globale | **77,8 %** |
+| Couverture P0 | **100 %** |
+| Couverture P1 | **83,9 %** |
+| Tests techniques automatisés | 39 |
+| Exécutions multi-projets | 110 |
+
+Le taux de couverture est distinct du taux de réussite : toute la non-régression est verte, mais dix cas fonctionnels du référentiel restent à automatiser.
+
 ## 9. Conclusion
 
 L’incrément est **acceptable pour publication dans un portfolio**, sous réserve
