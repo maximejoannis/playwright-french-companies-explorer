@@ -38,7 +38,7 @@ Ils exécutent l’application réelle dans un navigateur Playwright, mais inter
 await page.route(API_PATTERN, async (route) => {
   await route.fulfill({
     status: 200,
-    contentType: "application/json",
+    contentType: 'application/json',
     body: JSON.stringify(mockedResponse),
   });
 });
@@ -83,7 +83,7 @@ Ils vérifient notamment les comportements suivants :
 Ils sont donc classés avec les tags :
 
 ```ts
-tag: ["@functional", "@mocked"];
+tag: ['@functional', '@mocked'];
 ```
 
 Le tag `@functional` indique la nature de la vérification. Le tag `@mocked` indique que la dépendance HTTP utilisée pendant le scénario est simulée.
